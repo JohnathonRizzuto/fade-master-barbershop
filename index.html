@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fade Master Barbershop — Ottawa, IL · Precision Fades on Main Street</title>
+<meta name="description" content="Fade Master Barbershop at 215 W Main St, Ottawa IL. Precision fades, hot towel shaves, beard work, kids cuts. Walk-ins welcome. (815) 324-5161.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#000000;
+  --surface:#0a0a0a;
+  --surface-hi:#161616;
+  --white:#ffffff;
+  --red:#ff2d2d;
+  --red-deep:#cc1f1f;
+  --grey:#9a9a9a;
+  --line:rgba(255,255,255,.1);
+  --font-display:'Archivo Black',Impact,sans-serif;
+  --font-body:'Space Grotesk',sans-serif;
+}
+body{font-family:var(--font-body);background:var(--bg);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased;font-weight:400}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}.d4{transition-delay:.28s}
+
+/* TICKER */
+.ticker{background:var(--red);color:var(--white);padding:.5rem 0;overflow:hidden;font-family:var(--font-display);font-size:.8rem;letter-spacing:.4em;text-transform:uppercase;white-space:nowrap;position:fixed;top:0;left:0;right:0;z-index:101}
+.ticker-track{display:inline-block;padding-left:100%;animation:scroll 28s linear infinite}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+.ticker-track span{margin:0 1.5rem}
+
+/* NAV */
+.nav{position:fixed;top:36px;left:0;right:0;z-index:100;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;transition:background .3s,border-color .3s}
+.nav.scrolled{background:rgba(0,0,0,.95);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+.brand{font-family:var(--font-display);font-size:1.5rem;color:var(--white);letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
+.brand b{color:var(--red);font-weight:normal}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.nav-links a{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--white);transition:color .2s}
+.nav-links a:hover{color:var(--red)}
+.cta{background:var(--red);color:var(--white);padding:11px 22px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;transition:background .2s,transform .15s;border:none;cursor:pointer;font-family:var(--font-body)}
+.cta:hover{background:var(--red-deep);transform:translateY(-1px)}
+.menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:4px}
+.menu-toggle span{display:block;width:22px;height:2px;background:var(--white);margin:4px 0}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:flex-end;text-align:left;position:relative;padding:8rem 2rem 5rem;background:var(--bg);overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;opacity:.4}
+.hero-bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.7) 60%,rgba(0,0,0,1) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;max-width:1080px;margin:0 auto;width:100%}
+.hero-pre{font-size:.74rem;letter-spacing:.32em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:1.4rem;display:inline-block;background:var(--bg);padding:6px 14px;border:1px solid var(--red)}
+.hero-title{font-family:var(--font-display);font-size:clamp(3.5rem,10vw,8rem);line-height:.86;letter-spacing:-.02em;margin-bottom:1.5rem;color:var(--white);text-transform:uppercase}
+.hero-title em{font-style:normal;color:var(--red);display:block}
+.hero-title u{text-decoration:none;-webkit-text-stroke:2px var(--white);color:transparent;display:block}
+.hero-sub{font-size:1.05rem;color:var(--grey);line-height:1.7;max-width:540px;margin-bottom:2.2rem}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:var(--white);padding:16px 36px;font-size:.78rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;transition:all .2s;border:none;cursor:pointer;font-family:var(--font-body)}
+.btn-primary:hover{background:var(--red-deep);transform:translateY(-2px)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--white);color:var(--white);padding:14px 32px;font-size:.78rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;transition:all .2s;background:transparent}
+.btn-outline:hover{background:var(--white);color:var(--bg)}
+
+/* DIAGONAL */
+.diag{height:80px;background:var(--red);clip-path:polygon(0 0,100% 0,100% 100%,0 60%);position:relative;margin-top:-40px}
+
+/* SECTION */
+.sec{padding:6rem 2rem;background:var(--bg)}
+.sec-inner{max-width:1080px;margin:0 auto}
+.sec-pre{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:.9rem}
+.sec-title{font-family:var(--font-display);font-size:clamp(2.4rem,6vw,4.4rem);line-height:.95;letter-spacing:-.01em;margin-bottom:1.4rem;color:var(--white);text-transform:uppercase}
+.sec-title em{font-style:normal;color:var(--red)}
+.sec-desc{color:var(--grey);font-size:1rem;line-height:1.8;max-width:600px}
+.sec-center{text-align:center}
+.sec-center .sec-desc{margin:0 auto 3rem}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-img-wrap{position:relative;aspect-ratio:4/5}
+.about-img-wrap::before{content:"FADE";position:absolute;top:-25px;left:-25px;font-family:var(--font-display);font-size:6rem;color:var(--red);line-height:.8;letter-spacing:-.04em;z-index:3;pointer-events:none}
+.about-img{position:relative;width:100%;height:100%;overflow:hidden;z-index:2}
+.about-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1)}
+.about-quote{font-family:var(--font-display);font-size:1.5rem;color:var(--red);border-left:3px solid var(--red);padding-left:1.2rem;margin-top:1.6rem;line-height:1.2;text-transform:uppercase;letter-spacing:.02em}
+
+/* SERVICES */
+.services-bg{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem;margin-top:2rem}
+.svc-card{background:var(--bg);border:1px solid var(--line);padding:2rem 1.6rem;transition:border-color .2s,transform .2s;position:relative;overflow:hidden}
+.svc-card::before{content:"";position:absolute;top:0;left:0;width:4px;height:0;background:var(--red);transition:height .25s}
+.svc-card:hover{border-color:var(--red);transform:translateX(4px)}
+.svc-card:hover::before{height:100%}
+.svc-num{font-family:var(--font-display);font-size:.85rem;color:var(--red);letter-spacing:.2em;margin-bottom:.5rem;display:block}
+.svc-name{font-family:var(--font-display);font-size:1.5rem;margin-bottom:.5rem;color:var(--white);text-transform:uppercase;letter-spacing:.01em}
+.svc-desc{font-size:.92rem;color:var(--grey);line-height:1.65;margin-bottom:.9rem}
+.svc-price{font-family:var(--font-display);font-size:1.1rem;color:var(--red);letter-spacing:.04em}
+
+/* TESTI */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem;margin-top:2rem}
+.testi-card{background:var(--surface);border:1px solid var(--line);padding:2rem 1.6rem;position:relative}
+.testi-card::before{content:"★★★★★";position:absolute;top:1.4rem;right:1.4rem;color:var(--red);font-size:.85rem;letter-spacing:2px}
+.testi-text{color:var(--white);font-size:.98rem;line-height:1.7;margin:1.2rem 0 1rem;font-weight:500}
+.testi-author{font-size:.7rem;color:var(--grey);font-weight:700;letter-spacing:.24em;text-transform:uppercase}
+
+/* CONTACT */
+.contact{background:var(--bg);text-align:center}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;max-width:900px;margin:2.5rem auto 0;background:var(--line)}
+.ci{padding:2rem 1.4rem;background:var(--bg);text-align:left}
+.ci-icon{font-family:var(--font-display);color:var(--red);font-size:.8rem;letter-spacing:.2em;margin-bottom:.5rem}
+.ci-label{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--grey);font-weight:700;margin-bottom:.5rem}
+.ci-value{font-size:.96rem;color:var(--white);line-height:1.55;font-weight:500}
+.ci-value a{color:var(--red)}
+.map-wrap{margin-top:3rem;max-width:900px;margin-left:auto;margin-right:auto;height:320px;border:1px solid var(--line)}
+.map-wrap iframe{width:100%;height:100%;border:0;filter:grayscale(.8) invert(.9) hue-rotate(180deg)}
+
+/* FOOTER */
+.footer{background:var(--surface);color:var(--white);padding:3rem 2rem;text-align:center;border-top:1px solid var(--line)}
+.f-brand{font-family:var(--font-display);font-size:1.7rem;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.02em}
+.f-brand b{color:var(--red);font-weight:normal}
+.f-tag{color:var(--grey);font-size:.84rem;margin-bottom:1rem;letter-spacing:.06em}
+.f-copy{font-size:.7rem;color:#666;letter-spacing:.1em}
+
+@media(max-width:860px){
+  .nav-links{display:none}
+  .cta{display:none}
+  .menu-toggle{display:block}
+  .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg);padding:1.5rem 2rem;gap:1.2rem;border-bottom:1px solid var(--line)}
+  .hero{padding:6.5rem 1.4rem 3rem}
+  .about-grid{grid-template-columns:1fr;gap:3rem}
+  .about-img-wrap::before{font-size:3.5rem;top:-15px;left:-10px}
+  .sec{padding:4rem 1.2rem}
+}
+</style>
+</head>
+<body>
+
+<div class="ticker"><div class="ticker-track"><span>★ PRECISION FADES</span><span>★ HOT TOWEL SHAVES</span><span>★ BEARD WORK</span><span>★ WALK-INS WELCOME</span><span>★ 215 W MAIN ST OTTAWA IL</span><span>★ PRECISION FADES</span><span>★ HOT TOWEL SHAVES</span><span>★ BEARD WORK</span><span>★ WALK-INS WELCOME</span></div></div>
+
+<nav class="nav" id="nav">
+  <a href="#" class="brand">Fade <b>Master</b></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <a href="tel:+18153245161" class="cta">(815) 324-5161</a>
+  <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg">
+    <!-- REPLACE WITH REAL PHOTO -->
+    <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=1600&q=80" alt="Fade Master Barbershop Ottawa">
+  </div>
+  <div class="hero-content">
+    <span class="hero-pre fade-up">★ Ottawa · 215 W Main St</span>
+    <h1 class="hero-title fade-up d1">Precision<em>Fades.</em><u>No Excuses.</u></h1>
+    <p class="hero-sub fade-up d2">Fade Master is Ottawa's go-to for skin fades, beard work, and the kind of hot-towel finish that makes a haircut a moment. Walk in for the cut. Leave looking like a different man.</p>
+    <div class="hero-btns fade-up d3">
+      <a href="tel:+18153245161" class="btn-primary">Call the Shop</a>
+      <a href="#services" class="btn-outline">Services</a>
+    </div>
+  </div>
+</section>
+
+<div class="diag"></div>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="sec-inner about-grid">
+    <div class="about-img-wrap fade-up">
+      <div class="about-img">
+        <!-- REPLACE WITH REAL PHOTO -->
+        <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&q=80" alt="Inside Fade Master">
+      </div>
+    </div>
+    <div>
+      <div class="sec-pre fade-up">The Shop</div>
+      <h2 class="sec-title fade-up d1">Ottawa's <em>Sharpest</em><br>Chair.</h2>
+      <p class="sec-desc fade-up d2">Fade Master Barbershop is the spot for crisp work in downtown Ottawa. We don't do half-jobs — every fade gets blended right, every lineup is razor-sharp, and every cut leaves the chair finished.</p>
+      <p class="sec-desc fade-up d3" style="margin-top:1rem">Walk in any open day for a clean cut, a fresh beard, or the full hot-towel shave. We move fast but never rush the chair — that's how it stays sharp.</p>
+      <div class="about-quote fade-up d4">"Precision over speed. Every cut, every time."</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec services-bg" id="services">
+  <div class="sec-inner">
+    <div class="sec-center">
+      <div class="sec-pre fade-up">Services</div>
+      <h2 class="sec-title fade-up d1">What We <em>Do.</em></h2>
+      <p class="sec-desc fade-up d2">Walk-ins welcome any open day. Call ahead for guaranteed time.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card fade-up"><span class="svc-num">01 ·</span><h3 class="svc-name">Signature Fade</h3><p class="svc-desc">Low, mid, or high fade — tailored to your head shape and finished with a clean lineup.</p><span class="svc-price">Call for pricing</span></div>
+      <div class="svc-card fade-up d1"><span class="svc-num">02 ·</span><h3 class="svc-name">Skin Fade</h3><p class="svc-desc">Razor-blended fade taken all the way down to the skin. Precision work — give us the time.</p><span class="svc-price">Call for pricing</span></div>
+      <div class="svc-card fade-up d2"><span class="svc-num">03 ·</span><h3 class="svc-name">Beard &amp; Lineup</h3><p class="svc-desc">Beard shaped, blended into the fade, finished with a hot towel and sharp edge work.</p><span class="svc-price">Call for pricing</span></div>
+      <div class="svc-card fade-up"><span class="svc-num">04 ·</span><h3 class="svc-name">Hot Towel Shave</h3><p class="svc-desc">Old-school straight-razor shave with hot towel prep and aftershave finish.</p><span class="svc-price">Call for pricing</span></div>
+      <div class="svc-card fade-up d1"><span class="svc-num">05 ·</span><h3 class="svc-name">Kids Cut</h3><p class="svc-desc">12 and under. First cuts welcome — we'll keep them smiling.</p><span class="svc-price">Call for pricing</span></div>
+      <div class="svc-card fade-up d2"><span class="svc-num">06 ·</span><h3 class="svc-name">The Full Service</h3><p class="svc-desc">Cut + beard + hot towel shave. The full Fade Master treatment.</p><span class="svc-price">Call for pricing</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="sec" id="reviews">
+  <div class="sec-inner">
+    <div class="sec-center">
+      <div class="sec-pre fade-up">Reviews</div>
+      <h2 class="sec-title fade-up d1">Word on Main <em>Street.</em></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card fade-up"><p class="testi-text">Cleanest fade in Ottawa. Walked in cold on a Friday, in and out in thirty minutes with a perfect cut.</p><span class="testi-author">— Ottawa Regular</span></div>
+      <div class="testi-card fade-up d1"><p class="testi-text">The hot towel shave is unreal. These guys take pride in the work and you can feel it the second you sit down.</p><span class="testi-author">— First-Timer</span></div>
+      <div class="testi-card fade-up d2"><p class="testi-text">Drive 25 minutes from out of town for the cut. Fade Master is just on a different level.</p><span class="testi-author">— Out-of-Towner</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec contact" id="visit">
+  <div class="sec-inner">
+    <div class="sec-center">
+      <div class="sec-pre fade-up">Visit</div>
+      <h2 class="sec-title fade-up d1">Pull Up &amp; Get <em>Fresh.</em></h2>
+      <p class="sec-desc fade-up d2" style="margin:0 auto;max-width:520px">Downtown Ottawa, West Main Street. Pole out front, sharp cut inside.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="ci fade-up"><div class="ci-icon">01 · Address</div><div class="ci-label">Where</div><div class="ci-value">215 W Main St<br>Ottawa, IL 61350</div></div>
+      <div class="ci fade-up d1"><div class="ci-icon">02 · Phone</div><div class="ci-label">Call</div><div class="ci-value"><a href="tel:+18153245161">(815) 324-5161</a></div></div>
+      <div class="ci fade-up d2"><div class="ci-icon">03 · Hours</div><div class="ci-label">When</div><div class="ci-value" style="font-size:.85rem;font-weight:400">Mon 7am-7pm<br>Tue Closed<br>Wed-Thu 10am-7pm<br>Fri 8:30am-7pm<br>Sat 7am-2:30pm<br>Sun Closed</div></div>
+      <div class="ci fade-up d3"><div class="ci-icon">04 · Pay</div><div class="ci-label">Payment</div><div class="ci-value" style="font-size:.88rem;font-weight:400">Cash, cards<br>Walk-ins welcome</div></div>
+    </div>
+    <div class="map-wrap fade-up"><iframe src="https://www.google.com/maps?q=215+W+Main+St,+Ottawa,+IL+61350&output=embed" allowfullscreen loading="lazy"></iframe></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="f-brand">Fade <b>Master</b></div>
+  <div class="f-tag">Ottawa's Sharpest Cut · 215 W Main St</div>
+  <div class="f-copy">© 2026 Fade Master Barbershop · Ottawa, IL</div>
+</footer>
+
+<script>
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>40)});
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var h=this.getAttribute('href');if(h==='#')return;var t=document.querySelector(h);if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('navLinks').classList.remove('open')}})});
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-up').forEach(function(el){o.observe(el)});
+</script>
+
+</body>
+</html>
